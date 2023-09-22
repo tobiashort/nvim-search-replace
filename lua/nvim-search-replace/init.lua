@@ -11,6 +11,14 @@ local function get_selection()
   return selection, true
 end
 
+local function termcodes(str)
+  return vim.api.nvim_replace_termcodes(str, true, false, true)
+end
+
+local function feedkeys(str)
+  vim.api.nvim_feedkeys(str, "m", false)
+end
+
 local function replace_all()
   local selection, success = get_selection()
   if not success then
@@ -21,20 +29,9 @@ local function replace_all()
 
   -- At first a search will be executed.
   -- This is only for highlighting purposes.
-  vim.api.nvim_feedkeys(
-    "/"
-      .. escaped_selection
-      .. vim.api.nvim_replace_termcodes("<CR>N", true, false, true),
-    "m",
-    false)
-
-  vim.api.nvim_feedkeys(
-    ":%s/"
-      .. escaped_selection
-      .. "//g"
-      .. vim.api.nvim_replace_termcodes("<Left><Left>", true, false, true),
-    "m",
-    false)
+  feedkeys("/" .. escaped_selection .. termcodes("<CR>") .. "N")
+  feedkeys(":%s/" .. escaped_selection .. "//g" .. termcodes("<Left><Left>"))
+  feedkeys(":noh" .. termcodes("<CR>"))
 end
 
 local function setup()
