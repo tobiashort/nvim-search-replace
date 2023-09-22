@@ -30,7 +30,7 @@ local function replace_all()
   -- At first a search will be executed.
   -- This is only for highlighting purposes.
   feedkeys("/" .. escaped_selection .. termcodes("<CR>") .. "N")
-  feedkeys(":%s/" .. escaped_selection .. "//g | noh" .. termcodes("<Left><Left>"))
+  feedkeys(":%s/" .. escaped_selection .. "//g" .. termcodes("<Left><Left>"))
 end
 
 local function setup()
