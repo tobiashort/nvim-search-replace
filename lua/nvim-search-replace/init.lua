@@ -7,7 +7,7 @@ local function get_selection()
     print("mulit line selection not supported")
     return "", false
   end
-  local selection = vim.api.nvim_buf_get_text(0, line_start - 1, column_start - 1, line_end - 1, column_end - 1, {})[1]
+  local selection = vim.api.nvim_buf_get_text(0, line_start - 1, column_start - 1, line_end - 1, column_end, {})[1]
   return selection, true
 end
 
